@@ -2,7 +2,7 @@ Summary:	Command-line application to restore firmware files to iOS devices
 Summary(pl.UTF-8):	Narzędzie linii poleceń do przywracania plików firmware w urządzeniach iOS
 Name:		idevicerestore
 Version:	1.0.0
-Release:	3
+Release:	4
 License:	LGPL v2.1+
 Group:		Applications
 #Source0Download: https://libimobiledevice.org/
