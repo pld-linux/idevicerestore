@@ -44,7 +44,7 @@ dostępności blobów SHSH od Apple'a do podpisywania plików firmware'u.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__libtoolize}
