@@ -2,29 +2,39 @@ Summary:	Command-line application to restore firmware files to iOS devices
 Summary(pl.UTF-8):	Narzędzie linii poleceń do przywracania plików firmware w urządzeniach iOS
 Name:		idevicerestore
 Version:	1.0.0
-Release:	4
+%define	gitref	4b3e847e1d9a1210049a9e3f1d1caa38650c6617
+%define	snap	20261006
+%define	rel	1
+Release:	4.%{snap}.%{rel}
 License:	LGPL v2.1+
 Group:		Applications
 #Source0Download: https://libimobiledevice.org/
-Source0:	https://github.com/libimobiledevice/idevicerestore/releases/download/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	72cd746457730875b82589d272138f95
+#Source0:	https://github.com/libimobiledevice/idevicerestore/releases/download/%{version}/%{name}-%{version}.tar.bz2
+Source0:	https://github.com/libimobiledevice/idevicerestore/archive/%{gitref}/%{name}-%{snap}.tar.gz
+# Source0-md5:	4c9908bc70e19fe5102a5ba153eeefe2
 Patch0:		%{name}-sh.patch
 URL:		https://libimobiledevice.org/
-BuildRequires:	autoconf >= 2.64
+BuildRequires:	autoconf >= 2.68
 BuildRequires:	automake
 BuildRequires:	curl-devel >= 7.0
-BuildRequires:	libimobiledevice-devel >= 1.3.0
-BuildRequires:	libirecovery-devel >= 1.0.0
-BuildRequires:	libplist-devel >= 2.2.0
-BuildRequires:	libtool
-BuildRequires:	libzip-devel >= 0.8
+BuildRequires:	libimobiledevice-devel >= 1.4.0
+BuildRequires:	libimobiledevice-glue-devel >= 1.3.0
+BuildRequires:	libirecovery-devel >= 1.3.0
+BuildRequires:	libplist-devel >= 2.6.0
+BuildRequires:	libtool >= 2:2
+BuildRequires:	libtatsu-devel >= 1.0.4
+BuildRequires:	libusbmuxd-devel >= 2.0.2
+BuildRequires:	libzip-devel >= 1.0
 BuildRequires:	openssl-devel >= 0.9.8
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
-Requires:	libimobiledevice >= 1.3.0
-Requires:	libirecovery >= 1.0.0
-Requires:	libplist >= 2.2.0
-Requires:	libzip >= 0.8
+Requires:	libimobiledevice >= 1.4.0
+Requires:	libimobiledevice-glue >= 1.3.0
+Requires:	libirecovery >= 1.3.0
+Requires:	libplist >= 2.6.0
+Requires:	libtatsu-devel >= 1.0.4
+Requires:	libusbmuxd >= 2.0.2
+Requires:	libzip >= 1.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,8 +53,10 @@ W ogólności możliwe są upgrade'y i downgrade'y, ale zależy to od
 dostępności blobów SHSH od Apple'a do podpisywania plików firmware'u.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{gitref}
 %patch -P0 -p1
+
+echo "%{version}.%{snap}" > .tarball-version
 
 %build
 %{__libtoolize}
